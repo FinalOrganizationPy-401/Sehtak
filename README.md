@@ -5,6 +5,10 @@ It’s a platform for health history of the patients including the records of th
 The users in the medical centers can modify the patient data on their profile based on the permission level.
 
 
+### PM
+[Trello](https://trello.com/invite/b/QOAR26fX/d99bb528715f21ea6db061d759b5adf9/sehtak-health-platform)
+
+
 ### Members
 
  [Mohammad Azim](https://github.com/Mohammad99Azim)
@@ -12,6 +16,8 @@ The users in the medical centers can modify the patient data on their profile ba
  [Muhammad Qasem Tarboush](https://github.com/muhammadqasemtarboush1)
  
  [Lama Radwan](https://github.com/lamaradwan)
+ 
+ 
  
 
 
