@@ -1,7 +1,5 @@
 # User Stories
-Start out by creating at least 5 user stories for your approved project. The outline/requirements for user stories can be found HERE
-
-Each story in your project management board should contain:
+## Sehtak project will have the following user stories and not limited to:
 
 1. As a Patient user, I want to create a visit on any medical center including: hospitals, doctors, pharmacies, labs and x-ray centers
 2. As a Doctor user, I want to accept the visit from the patient 
