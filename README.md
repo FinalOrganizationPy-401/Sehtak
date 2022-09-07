@@ -21,4 +21,6 @@ The users in the medical centers can modify the patient data on their profile ba
  
 
 
-### [Team-Agreement](https://github.com/FinalOrganizationPy-401/Team-Agreement/blob/development/Team_Agreement.md)
+### [Team-Agreement](https://github.com/FinalOrganizationPy-401/Sehtak/blob/development/Team_Agreement.md)
+
+### [Software Requirements](https://github.com/FinalOrganizationPy-401/Sehtak/blob/development/requirements.md)
