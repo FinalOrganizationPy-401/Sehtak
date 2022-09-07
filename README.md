@@ -26,3 +26,7 @@ The users in the medical centers can modify the patient data on their profile ba
 ### [Software Requirements](https://github.com/FinalOrganizationPy-401/Sehtak/blob/development/requirements.md)
 
 ### [User Stories](https://github.com/FinalOrganizationPy-401/Sehtak/blob/development/userstories.md)
+
+
+
+### [Database Schema Diagram](https://drawsql.app/teams/mohammad-azim/diagrams/sehtake)
