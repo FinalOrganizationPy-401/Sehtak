@@ -3,7 +3,6 @@ from typing import Text
 from django.db import models
 
 from accounts.models import Patient,Doctor,Pharmacist,Labs,X_rays_lab
-from servicesmanager.models import Medicine,Tests,X_Rays
 
 # Create your models here.
 class Visits(models.Model):

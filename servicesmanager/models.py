@@ -9,8 +9,8 @@ class Medicine(models.Model):
     Midicine model 
 
     """
-    names = models.CharField(max_length=255, blank=True, max_length=255)
-    doses = models.IntegerField(max_length=255, blank=True, max_length=255) 
+    names = models.CharField(max_length=255, blank=True)
+    doses = models.IntegerField(max_length=255, blank=True) 
     add_date = models.DateField(auto_now_add=True)
     result_date = models.DateField(auto_now=True)
 
@@ -23,10 +23,10 @@ class Tests(models.Model):
     Tests model 
     
     """
-    names = models.CharField(max_length=255, blank=True, max_length=255)
+    names = models.CharField(max_length=255, blank=True)
     add_date = models.DateField(auto_now_add=True)
     result_date = models.DateField(auto_now=True)
-    folder_url = models.CharField(blank=True, max_length=255, blank=True)
+    folder_url = models.CharField( max_length=255,blank=True)
 
 
 
@@ -35,9 +35,9 @@ class X_Rays(models.Model):
     """
     X_Rays Model
     """
-    names = models.CharField(max_length=255, blank=True, max_length=255)
+    names = models.CharField(max_length=255, blank=True)
     add_date = models.DateField(auto_now_add=True)
     result_date = models.DateField(auto_now=True)
-    folder_url = models.CharField(blank=True, max_length=255, blank=True)
+    folder_url = models.CharField(max_length=255, blank=True)
 
 
