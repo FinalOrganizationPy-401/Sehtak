@@ -1,4 +1,3 @@
-import os
 """
 Django settings for core project.
 
@@ -59,7 +58,8 @@ INSTALLED_APPS = [
     # third party
     'rest_framework',
      # local apps
-    'servicesmanager'
+    'servicesmanager',
+    'visits',
 ]
 
 MIDDLEWARE = [
