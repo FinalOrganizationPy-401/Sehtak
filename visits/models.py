@@ -9,7 +9,9 @@ class Visits(models.Model):
     """
     Visits model
     """
-
+    class Meta:
+        verbose_name = "Visit"
+        verbose_name_plural = "Visits"
     # patient_id = models.ForeignKey(
     #     PatientProfile, on_delete=models.CASCADE, related_name="patients"
     # )
