@@ -31,3 +31,8 @@ class Visits(models.Model):
     medicine_id = models.IntegerField()
     test_id = models.IntegerField()
     x_rays_id = models.IntegerField()
+
+
+
+    def __str__(self):
+        return self.summary

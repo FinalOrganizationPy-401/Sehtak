@@ -51,7 +51,8 @@ class PatientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     patient_id = models.IntegerField(null=True, blank=True)
 
-
+    def __str__(self):
+        return self.user
 
 # DOCTOR Profile
 
@@ -75,6 +76,9 @@ class Doctor(User):
 class DoctorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     doctor_id = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user
 
 
 @receiver(post_save, sender=Doctor)
@@ -106,6 +110,9 @@ class PharmacistProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     pharmacist_id = models.IntegerField(null=True,blank=True)
 
+    def __str__(self):
+        return self.user
+
 
 # Labs Profile
 
@@ -129,6 +136,9 @@ class Labs(User):
 class LabsProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     labs_id = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user
 
 
 @receiver(post_save, sender=Labs)
@@ -161,6 +171,8 @@ class X_rays_labProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     x_rays_lab_id = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return self.user
 
 @receiver(post_save, sender=X_rays_lab)
 def create_user_profile(sender, instance, created, **kwargs):

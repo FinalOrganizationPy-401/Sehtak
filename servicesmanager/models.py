@@ -31,6 +31,9 @@ class Tests(models.Model):
     result_date = models.DateField(auto_now=True)
     folder_url = models.CharField(max_length=255, blank=True)
 
+    def __str__(self):
+        return self.names
+
 
 class X_Rays(models.Model):
     """
@@ -41,3 +44,6 @@ class X_Rays(models.Model):
     add_date = models.DateField(auto_now_add=True)
     result_date = models.DateField(auto_now=True)
     folder_url = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.names
