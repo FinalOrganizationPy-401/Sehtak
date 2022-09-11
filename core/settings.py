@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third party
+    "django_filters",
     "rest_framework",
     "phonenumber_field",
     'location_field.apps.DefaultConfig',
@@ -88,6 +89,7 @@ ROOT_URLCONF = "core.urls"
 
 STATIC_ROOT = "staticfiles"
 
+AUTH_USER_MODEL = "account.CustomUser"
 
 TEMPLATES = [
     {
@@ -163,6 +165,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 LOCATION_FIELD = {
     # Mapbox
