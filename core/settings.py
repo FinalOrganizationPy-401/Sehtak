@@ -89,7 +89,7 @@ ROOT_URLCONF = "core.urls"
 
 STATIC_ROOT = "staticfiles"
 
-AUTH_USER_MODEL = "account.CustomUser"
+# AUTH_USER_MODEL = "account.CustomUser"
 
 TEMPLATES = [
     {

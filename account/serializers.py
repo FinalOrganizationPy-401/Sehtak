@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
 
-from account.models import User
+# from account.models import User
 User = get_user_model()
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
