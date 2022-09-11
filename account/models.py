@@ -39,7 +39,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.role = self.base_role
+            self.role = self.role or self.base_role
             return super().save(*args, **kwargs)
 
 
@@ -86,7 +86,7 @@ class PatientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=256, blank=True,null=True)
     last_name = models.CharField(max_length=256, blank=True,null=True)
-    phone = phone = PhoneNumberField(blank=True,null=True)
+    phone =PhoneNumberField(blank=True,null=True)
     birth_date = models.DateField(blank=True,null=True)
 
     gender = models.IntegerField(choices=GENDER_CHOICES,blank=True,null=True)
@@ -96,7 +96,7 @@ class PatientProfile(models.Model):
     allergies = models.TextField(blank=True,null=True)
 
     def __str__(self):
-        return self.first_name
+        return self.user.email
 
 
 # ProfessionalProfile
