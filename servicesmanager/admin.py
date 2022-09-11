@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tests,Medicine, X_Rays
+from .models import Tests, Medicine, X_Rays
 
 # Register your models here.
 
