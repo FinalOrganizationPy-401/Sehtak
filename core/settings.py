@@ -58,10 +58,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party
     "rest_framework",
+    "phonenumber_field",
+    'location_field.apps.DefaultConfig',
     # local apps
     "servicesmanager",
     "visits",
-    "account"
+    "account",
+
 ]
 
 MIDDLEWARE = [
@@ -104,7 +107,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = "account.User"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -157,3 +160,16 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+
+LOCATION_FIELD = {
+    # Mapbox
+    'provider.mapbox.access_token': 'pk.eyJ1IjoibXVoYW1tYWQxMDEiLCJhIjoiY2w3d3llYmIwMHFiejNwczJmeGdqeTQ5ZCJ9.-8xr-S36X8PK24Z0RX3rZw',
+    'provider.mapbox.max_zoom': 18,
+    'provider.mapbox.id': 'mapbox.streets',
+}
+
+    
+

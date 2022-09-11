@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Medicine, Tests, X_Rays
-from .serializers import X_RaysSerializer, TestsSerializer,MedicineSerializer
+from .serializers import X_RaysSerializer, TestsSerializer, MedicineSerializer
 
 
 class MedicineListCreateView(ListCreateAPIView):

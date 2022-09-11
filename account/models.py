@@ -5,7 +5,24 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+from .managers import CustomUserManager
+from phonenumber_field.modelfields import PhoneNumberField
+from location_field.models.plain import PlainLocationField
+
+
+
+
 class User(AbstractUser):
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+
+
     class Role(models.TextChoices):
         ADMIN = "ADMIN", "Admin"
         PATIENT = "PATIENT", "Patient"
@@ -16,6 +33,8 @@ class User(AbstractUser):
 
     base_role = Role.ADMIN
 
+    username = None
+    email = models.EmailField( unique=True) # changes email to unique and blank to false
     role = models.CharField(max_length=50, choices=Role.choices)
 
     def save(self, *args, **kwargs):
@@ -23,7 +42,9 @@ class User(AbstractUser):
             self.role = self.base_role
             return super().save(*args, **kwargs)
 
+
 # Patient Profile
+
 
 class PatientManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -42,19 +63,59 @@ class Patient(User):
 
 
 @receiver(post_save, sender=Patient)
-def create_user_profile(sender, instance, created,*args, **kwargs):
+def create_user_profile(sender, instance, created, *args, **kwargs):
     if created and instance.role == "PATIENT":
         PatientProfile.objects.create(user=instance)
 
 
 class PatientProfile(models.Model):
+    GENDER_MALE = 0
+    GENDER_FEMALE = 1
+    GENDER_CHOICES = [(GENDER_MALE, 'Male'), (GENDER_FEMALE, 'Female')]
+
+    BLOOD_CHOICES = (
+        ('type', 'AB+'),
+        ('type', 'AB-'),
+        ('type', 'A+'),
+        ('type', 'A-'),
+        ('type', 'B+'),
+        ('type', 'B-'),
+        ('type', 'O+'),
+        ('type', 'O-'),
+        )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    patient_id = models.IntegerField(null=True, blank=True)
+    first_name = models.CharField(max_length=256, blank=True,null=True)
+    last_name = models.CharField(max_length=256, blank=True,null=True)
+    phone = phone = PhoneNumberField(blank=True,null=True)
+    birth_date = models.DateField(blank=True,null=True)
+
+    gender = models.IntegerField(choices=GENDER_CHOICES,blank=True,null=True)
+    height = models.PositiveIntegerField(blank=True,null=True)
+    weight = models.PositiveIntegerField(blank=True,null=True)
+    blood_type = models.CharField( max_length=50, choices=BLOOD_CHOICES,blank=True,null=True)
+    allergies = models.TextField(blank=True,null=True)
 
     def __str__(self):
         return self.user
 
+
+# ProfessionalProfile
+
+class ProfessionalProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, blank=True,null=True)
+    phone = PhoneNumberField(blank=True)
+    city = models.CharField(max_length=255, null=True)
+    location = PlainLocationField(based_fields=['city'], zoom=18,null=True) 
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        abstract = True
+
 # DOCTOR Profile
+
 
 class DoctorManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -73,25 +134,22 @@ class Doctor(User):
 
 
 
-class DoctorProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    doctor_id = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.user
+class DoctorProfile(ProfessionalProfile):
+    pass
 
 
 @receiver(post_save, sender=Doctor)
 def create_user_profile(sender, instance, created, **kwargs):
     if created and instance.role == "DOCTOR":
-       DoctorProfile.objects.create(user=instance)
+        DoctorProfile.objects.create(user=instance)
 
 
 # Pharmacist Profile
 class PharmacistManager(BaseUserManager):
-    def get_queryset(self,*args,**kwargs):
+    def get_queryset(self, *args, **kwargs):
         results = super().get_queryset(*args, **kwargs)
         return results.filter(role=User.Role.PHARMACIST)
+
 
 class Pharmacist(User):
 
@@ -101,20 +159,19 @@ class Pharmacist(User):
     class Meta:
         proxy = True
 
-@receiver(post_save,sender=Pharmacist)
-def create_user_profile(sender, instance, created,*args, **kwargs):
+
+@receiver(post_save, sender=Pharmacist)
+def create_user_profile(sender, instance, created, *args, **kwargs):
     if created and instance.role == "PHARMACIST":
         PharmacistProfile.objects.create(user=instance)
 
-class PharmacistProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    pharmacist_id = models.IntegerField(null=True,blank=True)
 
-    def __str__(self):
-        return self.user
+class PharmacistProfile(ProfessionalProfile):
+    pass
 
 
 # Labs Profile
+
 
 class LabsManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -132,23 +189,18 @@ class Labs(User):
         proxy = True
 
 
-
-class LabsProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    labs_id = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.user
+class LabsProfile(ProfessionalProfile):
+    pass
 
 
 @receiver(post_save, sender=Labs)
 def create_user_profile(sender, instance, created, **kwargs):
     if created and instance.role == "LABS":
-       LabsProfile.objects.create(user=instance)
-
+        LabsProfile.objects.create(user=instance)
 
 
 # X_rays_lab Profile
+
 
 class X_rays_labManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -166,15 +218,11 @@ class X_rays_lab(User):
         proxy = True
 
 
+class X_rays_labProfile(ProfessionalProfile):
+    pass
 
-class X_rays_labProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    x_rays_lab_id = models.IntegerField(null=True, blank=True)
-
-    def __str__(self):
-        return self.user
 
 @receiver(post_save, sender=X_rays_lab)
 def create_user_profile(sender, instance, created, **kwargs):
     if created and instance.role == "X_RAYS_LAB":
-       X_rays_labProfile.objects.create(user=instance)
+        X_rays_labProfile.objects.create(user=instance)

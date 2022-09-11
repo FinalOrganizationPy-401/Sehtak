@@ -2,16 +2,18 @@ from cgitb import text
 from typing import Text
 from django.db import models
 
-from account.models import DoctorProfile,PatientProfile
+from account.models import DoctorProfile, PatientProfile
 
 # Create your models here.
 class Visits(models.Model):
     """
     Visits model
     """
+
     class Meta:
         verbose_name = "Visit"
         verbose_name_plural = "Visits"
+
     # patient_id = models.ForeignKey(
     #     PatientProfile, on_delete=models.CASCADE, related_name="patients"
     # )
@@ -31,8 +33,6 @@ class Visits(models.Model):
     medicine_id = models.IntegerField()
     test_id = models.IntegerField()
     x_rays_id = models.IntegerField()
-
-
 
     def __str__(self):
         return self.summary

@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 class Medicine(models.Model):
     """
-    Midicine model
+    Medicine model
 
     """
 
@@ -33,6 +33,10 @@ class Tests(models.Model):
 
     def __str__(self):
         return self.names
+
+    class Meta:
+        verbose_name = "Test"
+        verbose_name_plural = "Tests"
 
 
 class X_Rays(models.Model):
