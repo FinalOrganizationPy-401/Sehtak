@@ -2,8 +2,8 @@ from cgitb import text
 from typing import Text
 from django.db import models
 
-from account.models import DoctorProfile, PatientProfile
-
+from account.models import DoctorProfile, PatientProfile, PharmacistProfile,LabsProfile,X_rays_labProfile
+from servicesmanager.models import Medicine,Tests ,X_Rays
 # Create your models here.
 class Visits(models.Model):
     """
@@ -14,25 +14,27 @@ class Visits(models.Model):
         verbose_name = "Visit"
         verbose_name_plural = "Visits"
 
-    # patient_id = models.ForeignKey(
-    #     PatientProfile, on_delete=models.CASCADE, related_name="patients"
-    # )
-    # doctor_id = models.ForeignKey(
-    #     DoctorProfile, on_delete=models.CASCADE, related_name="doctors"
-    # )
-    # pharmacist_id = models.ForeignKey(
-    #     Pharmacist, on_delete=models.CASCADE, related_name="pharmacist"
-    # )
-    # lab_id = models.ForeignKey(Labs, on_delete=models.CASCADE, related_name="lab")
-    # x_rays_lab_id = models.ForeignKey(
-    #     X_rays_lab, on_delete=models.CASCADE, related_name="x_rays_lab"
-    # )
+    patient_id = models.ForeignKey(
+        PatientProfile, on_delete=models.CASCADE, related_name="patients",blank=True,null=True
+    )
+    doctor_id = models.ForeignKey(
+        DoctorProfile, on_delete=models.CASCADE, related_name="doctors",blank=True,null=True
+    )
+    pharmacist_id = models.ForeignKey(
+        PharmacistProfile, on_delete=models.CASCADE, related_name="pharmacist",blank=True,null=True
+    )
+    lab_id = models.ForeignKey(
+        LabsProfile, on_delete=models.CASCADE, related_name="lab",blank=True,null=True
+    )
+    x_rays_lab_id = models.ForeignKey(
+        X_rays_labProfile, on_delete=models.CASCADE, related_name="x_rays_lab",blank=True,null=True
+    )
     summary = models.TextField()
     description = models.TextField()
     prescription = models.TextField()
-    medicine_id = models.IntegerField()
-    test_id = models.IntegerField()
-    x_rays_id = models.IntegerField()
+    medicine_id = models.OneToOneField(Medicine, on_delete=models.CASCADE)
+    test_id =  models.OneToOneField(Tests, on_delete=models.CASCADE)
+    x_rays_id =  models.OneToOneField(X_Rays, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.summary
