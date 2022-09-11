@@ -96,7 +96,7 @@ class PatientProfile(models.Model):
     allergies = models.TextField(blank=True,null=True)
 
     def __str__(self):
-        return self.user
+        return self.first_name
 
 
 # ProfessionalProfile
@@ -105,11 +105,11 @@ class ProfessionalProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, blank=True,null=True)
     phone = PhoneNumberField(blank=True)
-    city = models.CharField(max_length=255, null=True)
-    location = PlainLocationField(based_fields=['city'], zoom=18,null=True) 
+    city = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['city'], zoom=7,default='31.959153316146658,35.91156005859375')
 
     def __str__(self):
-        return self.user
+        return self.name
 
     class Meta:
         abstract = True
