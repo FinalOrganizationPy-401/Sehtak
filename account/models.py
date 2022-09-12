@@ -1,4 +1,4 @@
-from weakref import proxy
+# from weakref import proxy
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
