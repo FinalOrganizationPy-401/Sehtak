@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -34,6 +35,7 @@ env = environ.Env(
     DATABASE_PASSWORD=(str, ""),
     DATABASE_HOST=(str, ""),
     DATABASE_PORT=(int, 5432),
+    MAP_KEY=(str, "")
 )
 environ.Env.read_env()
 
@@ -176,9 +178,10 @@ REST_FRAMEWORK = {
     ],
 }
 
+MAP_KEY = env.str('MAP_KEY')
 LOCATION_FIELD = {
     # Mapbox
-    'provider.mapbox.access_token': 'pk.eyJ1IjoibXVoYW1tYWQxMDEiLCJhIjoiY2w3d3llYmIwMHFiejNwczJmeGdqeTQ5ZCJ9.-8xr-S36X8PK24Z0RX3rZw',
+    'provider.mapbox.access_token': MAP_KEY,
     'provider.mapbox.max_zoom': 18,
     'provider.mapbox.id': 'mapbox.streets',
 }
