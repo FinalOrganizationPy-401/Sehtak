@@ -79,6 +79,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware'
+   
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -116,13 +118,23 @@ AUTH_USER_MODEL = "account.User"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": env.str("DATABASE_ENGINE"),
+        "NAME": env.str("DATABASE_NAME"),
+        "USER": env.str("DATABASE_USER"),
+        "PASSWORD": env.str("DATABASE_PASSWORD"),
+        "HOST": env.str("DATABASE_HOST"),
+        "PORT": env.int("DATABASE_PORT"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -188,3 +200,7 @@ LOCATION_FIELD = {
 
     
 
+CORS_ORIGIN_WHITELIST = tuple(env.list("ALLOWED_ORIGINS"))
+CORS_ALLOW_ALL_ORIGINS = env.bool("ALLOW_ALL_ORIGINS")
+CSRF_TRUSTED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
+CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
