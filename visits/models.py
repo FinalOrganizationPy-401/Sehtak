@@ -32,9 +32,9 @@ class Visits(models.Model):
     summary = models.TextField()
     description = models.TextField()
     prescription = models.TextField()
-    medicine = models.OneToOneField(Medicine, on_delete=models.CASCADE)
-    test =  models.OneToOneField(Tests, on_delete=models.CASCADE)
-    x_rays =  models.OneToOneField(X_Rays, on_delete=models.CASCADE)
+    medicine = models.OneToOneField(Medicine, on_delete=models.CASCADE,related_name="medicines",blank=True,null=True)
+    test =  models.OneToOneField(Tests, on_delete=models.CASCADE,related_name="medicines",blank=True,null=True)
+    x_rays =  models.OneToOneField(X_Rays, on_delete=models.CASCADE,related_name="medicines",blank=True,null=True)
 
     def __str__(self):
         return self.summary
