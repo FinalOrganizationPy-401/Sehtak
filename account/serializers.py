@@ -3,11 +3,10 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth import get_user_model
+from .models import Patient
 
 # from account.models import User
-User = get_user_model()
-
+User = Patient
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @classmethod

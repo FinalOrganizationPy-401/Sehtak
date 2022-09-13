@@ -4,7 +4,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 
 from .models import Medicine, Tests, X_Rays
 from .serializers import X_RaysSerializer, TestsSerializer, MedicineSerializer
-
+from .permissions import IsOwnerOrReadOnly
 
 class MedicineListCreateView(ListCreateAPIView):
     queryset = Medicine.objects.all()
@@ -14,7 +14,7 @@ class MedicineListCreateView(ListCreateAPIView):
 class MedicineRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
-    #  permission_classes
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class TestsListCreateView(ListCreateAPIView):

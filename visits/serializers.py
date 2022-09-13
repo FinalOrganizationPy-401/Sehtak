@@ -6,9 +6,13 @@ from .models import Visits
 
 
 class VisitsSerializer(serializers.ModelSerializer):
+    # medicine = serializers.RelatedField( read_only=True)
+    # print(medicine,">>>>>>>>>>>>>>>>>>>>>>>>medicine_name<<<<<<<<<<<<<<<<<<<<<<<<<")
     class Meta:
         model = Visits
-        fields = "__all__"
+        # fields = ["","","","","","","","","",""]
+        fields = '__all__'
+     
 
 
 # https://stackoverflow.com/questions/66761924/django-rest-framework-get-data-from-related-table
