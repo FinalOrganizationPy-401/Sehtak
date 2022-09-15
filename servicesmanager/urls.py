@@ -9,7 +9,6 @@ from .views import (
     X_RaysRetrieveUpdateDestroyView,
 )
 
-# from ..visits.views import VisitsListCreateView, VisitsRetrieveUpdateDestroyView
 
 urlpatterns = [
     path("medicine/", MedicineListCreateView.as_view(), name="medicines_list"),
@@ -29,10 +28,4 @@ urlpatterns = [
         name="x_ray_detail",
     ),
 
-    # path("visits/", VisitsListCreateView.as_view(), name="visits_list"),
-    # path(
-    #     "visits/<int:pk>/",
-    #     VisitsRetrieveUpdateDestroyView.as_view(),
-    #     name="visits_detail",
-    # ),
 ]
