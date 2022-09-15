@@ -12,7 +12,8 @@ class Medicine(models.Model):
     """
 
     names = models.TextField(blank=True)
-    doses = models.IntegerField(blank=True)
+    # doses = models.IntegerField(blank=True)
+    sold_status = models.BooleanField(default=False)
     add_date = models.DateField(auto_now_add=True)
     result_date = models.DateField(auto_now=True)
 
