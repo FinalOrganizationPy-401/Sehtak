@@ -4,7 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
 from rest_framework.validators import UniqueValidator
-from .models import Patient,PatientProfile
+from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile
 
 # from account.models import User
 User = Patient
@@ -53,3 +53,51 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         extra_kwargs = {
            "password" : {'write_only': True}
         }
+
+class DoctorSerializer(serializers.ModelSerializer):
+    '''
+    Get list of doctors
+    '''
+    class Meta:
+        model = DoctorProfile
+        fields = '__all__'
+
+class DoctorProfileSerializer(serializers.ModelSerializer):
+    '''
+        Get doctor info 
+    '''
+    class Meta:
+        model = DoctorProfile
+        fields = '__all__'
+
+class PharmacistSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = PharmacistProfile
+        fields = '__all__'
+
+class PharmacistProfileSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = PharmacistProfile
+        fields = '__all__'
+
+
+class LabsSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = LabsProfile
+        fields = '__all__'
+
+class LabProfileSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = LabsProfile
+        fields = '__all__'
+
+class X_raysSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = X_rays_labProfile
+        fields = '__all__'
+
+class X_rayProfileSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = X_rays_labProfile
+        fields = '__all__'
+

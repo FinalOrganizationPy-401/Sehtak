@@ -8,4 +8,5 @@ urlpatterns = [
         VisitsRetrieveUpdateDestroyView.as_view(),
         name="visits_detail",
     ),
+    # view related visits_ for each 
 ]

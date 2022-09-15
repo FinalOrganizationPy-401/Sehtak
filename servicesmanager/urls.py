@@ -12,11 +12,11 @@ from .views import (
 # from ..visits.views import VisitsListCreateView, VisitsRetrieveUpdateDestroyView
 
 urlpatterns = [
-    path("medicen/", MedicineListCreateView.as_view(), name="medicens_list"),
+    path("medicine/", MedicineListCreateView.as_view(), name="medicines_list"),
     path(
-        "medicen/<int:pk>/",
+        "medicine/<int:pk>/",
         MedicineRetrieveUpdateDestroyView.as_view(),
-        name="medicen_detail",
+        name="medicine_detail",
     ),
     path("test/", TestsListCreateView.as_view(), name="test_list"),
     path(
