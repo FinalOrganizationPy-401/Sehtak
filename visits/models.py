@@ -35,6 +35,7 @@ class Visits(models.Model):
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE,related_name="medicines",blank=True,null=True)
     test =  models.ForeignKey(Tests, on_delete=models.CASCADE,related_name="tests",blank=True,null=True)
     x_rays =  models.ForeignKey(X_Rays, on_delete=models.CASCADE,related_name="x_rayss",blank=True,null=True)
+    visit_status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.summary

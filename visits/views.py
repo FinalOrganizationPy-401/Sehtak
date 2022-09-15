@@ -15,3 +15,10 @@ class VisitsRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Visits.objects.all()
     serializer_class = VisitsSerializer
     #  permission_classes
+    # def get_queryset(self):
+    #     print(self.request.user.role,"self.request.self.request.")
+        # return  Visits.objects.get(id=self.request.user)
+
+
+# user visits 
+# doctor v 

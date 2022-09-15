@@ -74,16 +74,16 @@ class PatientProfile(models.Model):
     GENDER_FEMALE = 1
     GENDER_CHOICES = [(GENDER_MALE, 'Male'), (GENDER_FEMALE, 'Female')]
 
-    BLOOD_CHOICES = (
-        ('type', 'AB+'),
-        ('type', 'AB-'),
-        ('type', 'A+'),
-        ('type', 'A-'),
-        ('type', 'B+'),
-        ('type', 'B-'),
-        ('type', 'O+'),
-        ('type', 'O-'),
-        )
+    BLOOD_CHOICES = [
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=256, blank=True,null=True)
     last_name = models.CharField(max_length=256, blank=True,null=True)
@@ -94,7 +94,7 @@ class PatientProfile(models.Model):
     gender = models.IntegerField(choices=GENDER_CHOICES,blank=True,null=True)
     height = models.PositiveIntegerField(blank=True,null=True)
     weight = models.PositiveIntegerField(blank=True,null=True)
-    blood_type = models.CharField( max_length=50, choices=BLOOD_CHOICES,blank=True,null=True)
+    blood_type = models.CharField( max_length=50, choices=BLOOD_CHOICES,default='AB+',blank=True,null=True)
     allergies = models.TextField(blank=True,null=True)
 
     def __str__(self):
