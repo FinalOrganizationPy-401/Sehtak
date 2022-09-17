@@ -12,9 +12,21 @@ User = Patient
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user): #2 
-
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        user_data = PatientProfile.objects.get(user=user.id)
+        user_data =''
+        # if user.role == "ADMIN":
+        #     user_data = PatientProfile.objects.get(user=user.id)
+        if user.role == "DOCTOR":
+            user_data = DoctorProfile.objects.get(user=user.id)
+        elif user.role == "PHARMACIST":
+            user_data = PharmacistProfile.objects.get(user=user.id)
+        elif user.role == "LABS":
+            user_data = LabsProfile.objects.get(user=user.id)
+        elif user.role == "X_RAYS_LAB":
+            user_data = X_rays_labProfile.objects.get(user=user.id)
+        elif user.role == "PATIENT":
+            user_data = PatientProfile.objects.get(user=user.id)
+        
         token['info_id'] = user_data.id
         token['username'] = user.username
 
