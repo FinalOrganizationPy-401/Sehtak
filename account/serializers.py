@@ -5,14 +5,8 @@ from rest_framework import serializers
 
 from rest_framework.validators import UniqueValidator
 from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile, User as UserModel
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 
-###############################3
-# from django.core import serializers
-# from rest_framework.views import exception_handler
-# from rest_framework import status
-############################
-# from account.models import User
 User = Patient
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

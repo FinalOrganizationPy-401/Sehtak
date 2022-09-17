@@ -86,7 +86,7 @@ class PatientProfile(models.Model):
         ('O+', 'O+'),
         ('O-', 'O-'),
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_user_id')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=256, blank=True,null=True)
     last_name = models.CharField(max_length=256, blank=True,null=True)
     # phone = phone = PhoneNumberField(blank=True,null=True)
