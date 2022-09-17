@@ -32,7 +32,7 @@ class User(AbstractUser):
 
     base_role = Role.ADMIN
 
-    username = None
+    username = "Abo azim"
     email = models.EmailField( unique=True) # changes email to unique and blank to false
     role = models.CharField(max_length=50, choices=Role.choices)
     # if role == 'PATIENT':
@@ -86,7 +86,7 @@ class PatientProfile(models.Model):
         ('O+', 'O+'),
         ('O-', 'O-'),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_user_id')
     first_name = models.CharField(max_length=256, blank=True,null=True)
     last_name = models.CharField(max_length=256, blank=True,null=True)
     # phone = phone = PhoneNumberField(blank=True,null=True)

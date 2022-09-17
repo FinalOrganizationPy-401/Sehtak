@@ -7,12 +7,13 @@ from django.contrib.auth import get_user_model
 
 from utils.permission import IsOwner,IsOwnerOrReadOnly
 from .models import PatientProfile as PatientProfileModel, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile
+
+# Login View 
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
-    context_object_name = PatientProfileModel
-    pk_url_kwarg = 'id'
 
+# Register View 
 class RegisterView(generics.CreateAPIView):
     User = get_user_model()
 
@@ -20,6 +21,7 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+# Patient Profile view 
 class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
     '''
      patient profile View : allowed get, update, delet  
@@ -28,6 +30,7 @@ class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
     permission_classes = [IsOwner]
+
 
 class DoctorView(generics.ListAPIView):
     '''

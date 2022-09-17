@@ -4,24 +4,29 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
 from rest_framework.validators import UniqueValidator
-from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile
-from django.template import RequestContext
+from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile, User as UserModel
+from django.contrib.auth import authenticate
 
+###############################3
+# from django.core import serializers
+# from rest_framework.views import exception_handler
+# from rest_framework import status
+############################
 # from account.models import User
 User = Patient
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    
-    @classmethod
-    def get_token(cls, user):
-        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        # print(cls,"cls>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        # print(token,"token>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user): #2 
+
+        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+        user_data = PatientProfile.objects.get(user=user.id)
+        token['info_id'] = user_data.id
         token['username'] = user.username
-        # get_user(token)
+
         return token
 
-
+# Register a new user
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
             required=True,  
