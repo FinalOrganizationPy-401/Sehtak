@@ -14,19 +14,19 @@ class Visits(models.Model):
         verbose_name = "Visit"
         verbose_name_plural = "Visits"
 
-    patient_id = models.ForeignKey(
+    patient = models.ForeignKey(
         PatientProfile, on_delete=models.CASCADE, related_name="patients",blank=True,null=True
     )
-    doctor_id = models.ForeignKey(
+    doctor = models.ForeignKey(
         DoctorProfile, on_delete=models.CASCADE, related_name="doctors",blank=True,null=True
     )
-    pharmacist_id = models.ForeignKey(
+    pharmacist = models.ForeignKey(
         PharmacistProfile, on_delete=models.CASCADE, related_name="pharmacist",blank=True,null=True
     )
-    lab_id = models.ForeignKey(
+    lab = models.ForeignKey(
         LabsProfile, on_delete=models.CASCADE, related_name="lab",blank=True,null=True
     )
-    x_rays_lab_id = models.ForeignKey(
+    x_rays_lab = models.ForeignKey(
         X_rays_labProfile, on_delete=models.CASCADE, related_name="x_rays_lab",blank=True,null=True
     )
     summary = models.TextField()

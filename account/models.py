@@ -1,4 +1,5 @@
 # from weakref import proxy
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
@@ -8,15 +9,13 @@ from django.dispatch import receiver
 from .managers import CustomUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 from location_field.models.plain import PlainLocationField
-
-
+# from account.models import Patient
 
 
 class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
     objects = CustomUserManager()
 
     def __str__(self):
@@ -36,6 +35,8 @@ class User(AbstractUser):
     username = None
     email = models.EmailField( unique=True) # changes email to unique and blank to false
     role = models.CharField(max_length=50, choices=Role.choices)
+    # if role == 'PATIENT':
+    # user_info = models.OneToOneField(PatientProfile, on_delete=models.CASCADE,null=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -67,6 +68,7 @@ class Patient(User):
 def create_user_profile(sender, instance, created, *args, **kwargs):
     if created and instance.role == "PATIENT":
         PatientProfile.objects.create(user=instance)
+
 
 
 class PatientProfile(models.Model):

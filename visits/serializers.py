@@ -2,20 +2,24 @@ from asyncio import streams
 from dataclasses import field
 from account.models import Patient
 from rest_framework import serializers
-from servicesmanager.models import Medicine, Tests,X_Rays
-# from django.contrib.auth import get_user_model
+# from servicesmanager.models import Medicine, Tests,X_Rays
+from django.contrib.auth import get_user_model
 
 from .models import Visits
-
+# from servicesmanager.models import PatientProfile
 
 class VisitsSerializer(serializers.ModelSerializer):
-    patient_id = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-#       patient_id = serializers.PrimaryKeyRelatedField(queryset = get_user_model().objects.all(), source = "member", write_only=True)
-    #  read_only_fields = ('userId',)
+    # patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+    # patient = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.U )
+    patient = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Visits
-        # fields = ['patient_id','doctor_id','pharmacist_id','lab_id','x_rays_lab_id','summary','description','prescription','medicine','test','x_rays']
+        # fields = ['patient','doctor','pharmacist','lab','x_rays_lab','medicine','test','x_rays']
+
+        # def get_patient(self,obj):
+            
+  
         fields = '__all__'
         
    

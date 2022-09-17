@@ -10,7 +10,8 @@ from .models import PatientProfile as PatientProfileModel, DoctorProfile,Pharmac
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
-
+    context_object_name = PatientProfileModel
+    pk_url_kwarg = 'id'
 
 class RegisterView(generics.CreateAPIView):
     User = get_user_model()
