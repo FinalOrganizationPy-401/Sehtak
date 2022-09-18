@@ -80,6 +80,8 @@ class DoctorProfileSerializer(serializers.ModelSerializer):
     '''
         Get doctor info 
     '''
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = DoctorProfile
         fields = '__all__'
@@ -90,7 +92,9 @@ class PharmacistSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PharmacistProfileSerializer(serializers.ModelSerializer):
-     class Meta:
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
         model = PharmacistProfile
         fields = '__all__'
 
@@ -101,7 +105,10 @@ class LabsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class LabProfileSerializer(serializers.ModelSerializer):
-     class Meta:
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
         model = LabsProfile
         fields = '__all__'
 
@@ -111,7 +118,9 @@ class X_raysSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class X_rayProfileSerializer(serializers.ModelSerializer):
-     class Meta:
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
         model = X_rays_labProfile
         fields = '__all__'
 

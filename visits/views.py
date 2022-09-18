@@ -3,7 +3,7 @@
 from account.models import DoctorProfile, LabsProfile, PatientProfile, PharmacistProfile, X_rays_labProfile
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,CreateAPIView,ListAPIView
 
-from .serializers import VisitsSerializer
+from .serializers import VisitsSerializer,VisitDetailsSerializer
 from .models import Visits
 # from utils.permission import IsOwner
 
@@ -16,23 +16,20 @@ class CreateVisitView(CreateAPIView):
     serializer_class = VisitsSerializer
     
     def perform_create(self, serializer):
-        print(self.request.user,"self.request.user.id")
         patient = PatientProfile.objects.get(user=self.request.user.id)
+        # print(self.request.user,"self.request.user.id")
+
         return serializer.save(patient=patient)
 
 
-class PatientVisitsView(ListAPIView):
+class UserVisitsView(ListAPIView):
     '''
-    Get all visits related for one user 
+    Get all visits related for any user 
     '''
     def get_queryset(self):
-        # patient =''
         if self.request.user.role == 'DOCTOR':
-            patient = DoctorProfile.objects.get(user=self.request.user.id)
-            patient = patient.id
-            print(patient,'>>>>>>>>>>>>>>>>>')
-            data = Visits.objects.filter(doctor=patient)
-            print(data)
+            doctor = DoctorProfile.objects.get(user=self.request.user.id)
+            data = Visits.objects.filter(doctor=doctor)
             return data
 
         elif self.request.user.role == 'PATIENT':
@@ -51,7 +48,7 @@ class PatientVisitsView(ListAPIView):
             
             data = Visits.objects.filter(pharmacist=pharmacist)
             return data
-            
+
         elif self.request.user.role == 'X_RAYS_LAB':
             x_rays_lab = X_rays_labProfile.objects.get(user=self.request.user.id)
            
@@ -65,7 +62,7 @@ class PatientVisitsView(ListAPIView):
 class VisitsRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsPatientOrReadOnly]
     queryset = Visits.objects.all()
-    serializer_class = VisitsSerializer
+    serializer_class = VisitDetailsSerializer
    
 # user visits 
 # doctor v 
