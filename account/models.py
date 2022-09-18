@@ -1,4 +1,5 @@
 # from weakref import proxy
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
@@ -8,15 +9,13 @@ from django.dispatch import receiver
 from .managers import CustomUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 from location_field.models.plain import PlainLocationField
-
-
+# from account.models import Patient
 
 
 class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
     objects = CustomUserManager()
 
     def __str__(self):
@@ -33,9 +32,11 @@ class User(AbstractUser):
 
     base_role = Role.ADMIN
 
-    username = None
+    username = "Abo azim"
     email = models.EmailField( unique=True) # changes email to unique and blank to false
     role = models.CharField(max_length=50, choices=Role.choices)
+    # if role == 'PATIENT':
+    # user_info = models.OneToOneField(PatientProfile, on_delete=models.CASCADE,null=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -69,21 +70,22 @@ def create_user_profile(sender, instance, created, *args, **kwargs):
         PatientProfile.objects.create(user=instance)
 
 
+
 class PatientProfile(models.Model):
     GENDER_MALE = 0
     GENDER_FEMALE = 1
     GENDER_CHOICES = [(GENDER_MALE, 'Male'), (GENDER_FEMALE, 'Female')]
 
-    BLOOD_CHOICES = (
-        ('type', 'AB+'),
-        ('type', 'AB-'),
-        ('type', 'A+'),
-        ('type', 'A-'),
-        ('type', 'B+'),
-        ('type', 'B-'),
-        ('type', 'O+'),
-        ('type', 'O-'),
-        )
+    BLOOD_CHOICES = [
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=256, blank=True,null=True)
     last_name = models.CharField(max_length=256, blank=True,null=True)
@@ -94,7 +96,7 @@ class PatientProfile(models.Model):
     gender = models.IntegerField(choices=GENDER_CHOICES,blank=True,null=True)
     height = models.PositiveIntegerField(blank=True,null=True)
     weight = models.PositiveIntegerField(blank=True,null=True)
-    blood_type = models.CharField( max_length=50, choices=BLOOD_CHOICES,blank=True,null=True)
+    blood_type = models.CharField( max_length=50, choices=BLOOD_CHOICES,default='AB+',blank=True,null=True)
     allergies = models.TextField(blank=True,null=True)
 
     def __str__(self):

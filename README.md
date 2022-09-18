@@ -33,43 +33,51 @@ The users in the medical centers can modify the patient data on their profile ba
 
 ### Patient
 
- Login: `/auth/login`
+ Login: `/login`
 
-Register: `/auth/register`
+Register: `/register`
 
-Patient profile : `/auth/profile/user ID/`
+Patient profile : `/profile/user ID/`
 
 ---
 
 ### Doctor
 
-All Doctors : `/auth/doctors/`
+All Doctors : `/doctors/`
 
-Doctor profile : `/auth/doctors/profile/doctor ID/`
+Doctor profile : `/doctors/profile/doctor ID/`
+
+Edit Doctor profile : `/doctors/profile/edit/doctor ID/`
 
 ---
 
 ### Pharmacists
 
-All Pharmacists : `/auth/pharmacists/`
+All Pharmacists : `/pharmacists/`
 
-Pharmacist profile : `/auth/pharmacist/profile/pharmacist ID/`
+Pharmacist profile : `/pharmacist/profile/pharmacist ID/`
+
+Edit Pharmacist profile : `/Pharmacists/profile/edit/Pharmacist ID/`
 
 ---
 
 ### labs
 
-All labs : `/auth/labs/`
+All labs : `/labs/`
 
-lab profile : `/auth/labs/profile/lab ID/`
+lab profile : `/labs/profile/lab ID/`
+
+Edit lab profile : `/labs/profile/edit/lab ID/`
 
 ---
 
 ### X_Ray labs
 
-All X_Ray labs : `/auth/x_rays/`
+All X_Ray labs : `/x_rays/`
 
-X_Ray lab profile : `/auth/x_rays/profile/x_ray ID/`
+X_Ray lab profile : `/x_rays/profile/x_ray ID/`
+
+Edit X_Ray lab profile : `/x_rays/profile/edit/x_ray lab ID/`
 
 ---
 
@@ -94,3 +102,13 @@ Test details : `/api/v1/test/ID/`
 All X_Ray : `/api/v1/x_ray/`
 
 X_Ray details : `/api/v1/x_ray/ID/`
+
+---
+
+### Visits
+
+View Patient visits: `api/v1/visits/`
+
+Create New Visit: `api/v1/visits/create`
+
+View visit details: `api/v1/visits/ visit id`

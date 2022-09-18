@@ -4,27 +4,40 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
 from rest_framework.validators import UniqueValidator
-from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile
+from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile, User as UserModel
+# from django.contrib.auth import authenticate
 
-# from account.models import User
 User = Patient
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-
     @classmethod
-    def get_token(cls, user):
+    def get_token(cls, user): #2 
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-
-
+        user_data =''
+        # if user.role == "ADMIN":
+        #     user_data = PatientProfile.objects.get(user=user.id)
+        if user.role == "DOCTOR":
+            user_data = DoctorProfile.objects.get(user=user.id)
+        elif user.role == "PHARMACIST":
+            user_data = PharmacistProfile.objects.get(user=user.id)
+        elif user.role == "LABS":
+            user_data = LabsProfile.objects.get(user=user.id)
+        elif user.role == "X_RAYS_LAB":
+            user_data = X_rays_labProfile.objects.get(user=user.id)
+        elif user.role == "PATIENT":
+            user_data = PatientProfile.objects.get(user=user.id)
+        
+        token['info_id'] = user_data.id
         token['username'] = user.username
+
         return token
 
-
+# Register a new user
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-            required=True,
+            required=True,  
             validators=[UniqueValidator(queryset=User.objects.all())]
             )
-
     password = serializers.CharField(min_length=8, write_only=True,style={'input_type': 'password'})
     
     class Meta:
@@ -47,6 +60,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         Get patient details 
     '''
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    print(user, "user in serrrr")
     class Meta:
         model = PatientProfile
         fields = '__all__'

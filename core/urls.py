@@ -18,7 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("auth/", include('account.urls')),
+    path("", include('account.urls')),
     path("api/v1/", include("servicesmanager.urls")),
     path("api/v1/visits/", include("visits.urls")),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
