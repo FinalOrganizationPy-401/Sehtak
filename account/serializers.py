@@ -60,6 +60,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         Get patient details 
     '''
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    print(user, "user in serrrr")
     class Meta:
         model = PatientProfile
         fields = '__all__'

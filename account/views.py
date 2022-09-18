@@ -22,7 +22,25 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 # Patient Profile view 
-class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
+# class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
+#     '''
+#      patient profile View : allowed get, update, delet  
+#     '''
+#     User = PatientProfileModel
+#     queryset = User.objects.all()
+#     serializer_class = PatientProfileSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
+
+class PatientProfileView(generics.RetrieveAPIView):
+    def get_queryset(self):
+        User = PatientProfileModel
+        print(self.request.user.role,'self')
+        return User.objects.filter(id=self.request.user.id)
+    # queryset = User.objects.all()
+    serializer_class = PatientProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+class PatientProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     '''
      patient profile View : allowed get, update, delet  
     '''
@@ -30,8 +48,7 @@ class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
-
+    
 class DoctorView(generics.ListAPIView):
     '''
     view list of doctor Profiles
@@ -39,13 +56,13 @@ class DoctorView(generics.ListAPIView):
     queryset = DoctorProfile.objects.all()
     serializer_class = DoctorSerializer
 
-class DoctorProfileView(generics.RetrieveUpdateDestroyAPIView):
+class DoctorProfileView(generics.RetrieveAPIView):
     '''
     view doctor Profile details with ability to edit and update information
     '''
     queryset = DoctorProfile.objects.all()
     serializer_class = DoctorProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
 
 class PharmacistView(generics.ListAPIView):
     '''

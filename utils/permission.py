@@ -19,6 +19,8 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if obj.user is None:
             return True
         return obj.user.id == request.data['user']
+
+        
 # class IsPatientOrReadOnly(permissions.BasePermission):
 #     def has_object_permission(self, request, view, obj):
 
