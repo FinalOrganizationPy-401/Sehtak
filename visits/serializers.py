@@ -14,11 +14,10 @@ class VisitsSerializer(serializers.ModelSerializer):
 
 class VisitDetailsSerializer(serializers.ModelSerializer):
     patient = serializers.PrimaryKeyRelatedField(read_only=True)
-    # doctor = serializers.CharField(source='DoctorProfile.id')
-    # doctor = DoctorProfileSerializer()
-    # lab = LabProfileSerializer()
-    # pharmacist = PharmacistProfileSerializer()
-    # x_rays_lab = X_rayProfileSerializer()
+    doctor = DoctorProfileSerializer()
+    lab = LabProfileSerializer()
+    pharmacist = PharmacistProfileSerializer()
+    x_rays_lab = X_rayProfileSerializer()
     
     # lab = LabsSerializer()
     class Meta:
