@@ -29,9 +29,9 @@ class Visits(models.Model):
     x_rays_lab = models.ForeignKey(
         X_rays_labProfile, on_delete=models.CASCADE, related_name="x_rays_lab",blank=True,null=True
     )
-    summary = models.TextField()
-    description = models.TextField()
-    prescription = models.TextField()
+    summary = models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True,null=True)
+    prescription = models.TextField(blank=True,null=True)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE,related_name="medicines",blank=True,null=True)
     test =  models.ForeignKey(Tests, on_delete=models.CASCADE,related_name="tests",blank=True,null=True)
     x_rays =  models.ForeignKey(X_Rays, on_delete=models.CASCADE,related_name="x_rayss",blank=True,null=True)
