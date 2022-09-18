@@ -1,10 +1,9 @@
 from rest_framework import permissions
+from django.http import QueryDict
 
 class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
 
-        # if request.method in permissions.SAFE_METHODS:
-        #     return True
         if obj is None:
             return True
         return obj.user == request.user
@@ -19,8 +18,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # then this will check for that case and allow access
         if obj.user is None:
             return True
-        return obj.user == request.user
-
+        return obj.user.id == request.data['user']
 # class IsPatientOrReadOnly(permissions.BasePermission):
 #     def has_object_permission(self, request, view, obj):
 

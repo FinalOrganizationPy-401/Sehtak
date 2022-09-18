@@ -29,7 +29,7 @@ class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
     User = PatientProfileModel
     queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
-    # permission_classes = [IsOwner]
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class DoctorView(generics.ListAPIView):
