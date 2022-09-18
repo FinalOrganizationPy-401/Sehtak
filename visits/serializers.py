@@ -6,7 +6,7 @@ from account.models import DoctorProfile
 
 class VisitsSerializer(serializers.ModelSerializer):
     patient = serializers.PrimaryKeyRelatedField(read_only=True)
-
+    doctor = DoctorProfileSerializer()
     class Meta:
         model = Visits
         fields = '__all__'
