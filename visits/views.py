@@ -16,6 +16,7 @@ class CreateVisitView(CreateAPIView):
     serializer_class = VisitsSerializer
     
     def perform_create(self, serializer):
+        print(self.request.user,"self.request.user.id")
         patient = PatientProfile.objects.get(user=self.request.user.id)
         return serializer.save(patient=patient)
 
