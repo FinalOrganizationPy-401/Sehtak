@@ -1,5 +1,5 @@
 from django.urls import path
-from account.views import MyObtainTokenPairView, RegisterView,PatientProfileView,DoctorProfileView,DoctorView ,PharmacistView,PharmacistProfileView, LabsView, LabProfileView,X_raysView,X_raysProfileView
+from account.views import MyObtainTokenPairView, RegisterView,PatientProfileView,DoctorProfileView,DoctorView ,PharmacistView,PharmacistProfileView, LabsView, LabProfileView,X_raysView,X_raysProfileView,PatientProfileUpdate
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -9,7 +9,8 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),
 
-    path('profile/', PatientProfileView.as_view(), name='patient_profile'),
+    path('profile/<int:pk>/', PatientProfileView.as_view(), name='patient_profile'),
+    # path('profile/<int:pk>', PatientProfileUpdate.as_view(), name='patient_edit_profile'),
 
     path('doctors/', DoctorView.as_view(), name='doctor_list'),
     path('doctors/profile/<int:pk>', DoctorProfileView.as_view(), name='doctor_profile'),

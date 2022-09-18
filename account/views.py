@@ -31,14 +31,20 @@ class RegisterView(generics.CreateAPIView):
 #     serializer_class = PatientProfileSerializer
 #     permission_classes = [IsOwnerOrReadOnly]
 
-class PatientProfileView(generics.RetrieveAPIView):
-    def get_queryset(self):
-        User = PatientProfileModel
-        print(self.request.user.role,'self')
-        return User.objects.filter(id=self.request.user.id)
+class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
+    # def get_queryset(self):
+    #     User = PatientProfileModel
+    #     print(self.request.user.role,'self')
+    #     return User.objects.filter(id=self.request.user.id)
+    # queryset = PatientProfileModel.objects.all()
+    # serializer_class = DoctorProfileSerializer
     # queryset = User.objects.all()
+    # serializer_class = PatientProfileSerializer
+    # permission_classes = [IsOwnerOrReadOnly]
+    User = PatientProfileModel
+    queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwner]
 
 class PatientProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     '''
@@ -47,7 +53,7 @@ class PatientProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     User = PatientProfileModel
     queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwner]
     
 class DoctorView(generics.ListAPIView):
     '''
