@@ -21,32 +21,9 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-# Patient Profile view 
-# class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
-#     '''
-#      patient profile View : allowed get, update, delet  
-#     '''
-#     User = PatientProfileModel
-#     queryset = User.objects.all()
-#     serializer_class = PatientProfileSerializer
-#     permission_classes = [IsOwnerOrReadOnly]
+#-----------------------Patient--------------------#
 
 class PatientProfileView(generics.RetrieveUpdateDestroyAPIView):
-    # def get_queryset(self):
-    #     User = PatientProfileModel
-    #     print(self.request.user.role,'self')
-    #     return User.objects.filter(id=self.request.user.id)
-    # queryset = PatientProfileModel.objects.all()
-    # serializer_class = DoctorProfileSerializer
-    # queryset = User.objects.all()
-    # serializer_class = PatientProfileSerializer
-    # permission_classes = [IsOwnerOrReadOnly]
-    User = PatientProfileModel
-    queryset = User.objects.all()
-    serializer_class = PatientProfileSerializer
-    permission_classes = [IsOwner]
-
-class PatientProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     '''
      patient profile View : allowed get, update, delet  
     '''
@@ -54,7 +31,9 @@ class PatientProfileUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = PatientProfileSerializer
     permission_classes = [IsOwner]
-    
+
+#-----------------------Doctor--------------------#
+
 class DoctorView(generics.ListAPIView):
     '''
     view list of doctor Profiles
@@ -64,11 +43,20 @@ class DoctorView(generics.ListAPIView):
 
 class DoctorProfileView(generics.RetrieveAPIView):
     '''
-    view doctor Profile details with ability to edit and update information
+    view doctor Profile details
     '''
     queryset = DoctorProfile.objects.all()
     serializer_class = DoctorProfileSerializer
-    # permission_classes = [IsOwnerOrReadOnly]
+
+class DoctorProfileEdit(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    view doctor Profile details
+    '''
+    queryset = DoctorProfile.objects.all()
+    serializer_class = DoctorProfileSerializer
+    permission_classes = [IsOwner]
+
+#-----------------------Pharmacist--------------------#
 
 class PharmacistView(generics.ListAPIView):
     '''
@@ -77,14 +65,22 @@ class PharmacistView(generics.ListAPIView):
     queryset = PharmacistProfile.objects.all()
     serializer_class = PharmacistSerializer
 
-class PharmacistProfileView(generics.RetrieveUpdateDestroyAPIView):
+class PharmacistProfileView(generics.RetrieveAPIView):
     '''
-    view Pharmacist Profile details with ability to edit and update information
+    view Pharmacist Profile details
     '''
     queryset = PharmacistProfile.objects.all()
     serializer_class = PharmacistProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
 
+class PharmacistProfileEdit(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    view Pharmacist Profile details  with ability to edit and update information
+    '''
+    queryset = PharmacistProfile.objects.all()
+    serializer_class = PharmacistProfileSerializer
+    permission_classes = [IsOwner]
+
+#-----------------------Lab--------------------#
 
 class LabsView(generics.ListAPIView):
     '''
@@ -93,7 +89,7 @@ class LabsView(generics.ListAPIView):
     queryset = LabsProfile.objects.all()
     serializer_class = LabsSerializer
 
-class LabProfileView(generics.RetrieveUpdateDestroyAPIView):
+class LabProfileView(generics.RetrieveAPIView):
     '''
     view Labs Profile details with ability to edit and update information
     '''
@@ -101,17 +97,35 @@ class LabProfileView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LabProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+class LabsProfileEdit(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    view Lab Profile details  with ability to edit and update information
+    '''
+    queryset = LabsProfile.objects.all()
+    serializer_class = LabProfileSerializer
+    permission_classes = [IsOwner]
+
+#-----------------------X-ray--------------------#
+
 class X_raysView(generics.ListAPIView):
     '''
-    view list of Lab Profiles
+    view list of X-ray Lab Profiles
     '''
     queryset = X_rays_labProfile.objects.all()
     serializer_class = X_raysSerializer
 
-class X_raysProfileView(generics.RetrieveUpdateDestroyAPIView):
+class X_raysProfileView(generics.RetrieveAPIView):
     '''
-    view Labs Profile details with ability to edit and update information
+    view X-ray Profile details with ability to edit and update information
     '''
     queryset = X_rays_labProfile.objects.all()
     serializer_class = X_rayProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
+
+class  X_raysProfileEdit(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    view X-ray Profile details  with ability to edit and update information
+    '''
+    queryset = X_rays_labProfile.objects.all()
+    serializer_class = X_rayProfileSerializer
+    permission_classes = [IsOwner]
