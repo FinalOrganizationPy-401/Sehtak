@@ -45,6 +45,7 @@ class User(AbstractUser):
             return super().save(*args, **kwargs)
 
 
+
 # Patient Profile
 
 

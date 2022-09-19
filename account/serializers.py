@@ -26,9 +26,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             user_data = X_rays_labProfile.objects.get(user=user.id)
         elif user.role == "PATIENT":
             user_data = PatientProfile.objects.get(user=user.id)
-        print(user_data,"user_datauser_data")
+        print(user.role,"user_datauser_data")
         token['info_id'] = user_data.id
-        # token['role'] = user_data
+        token['role'] = user.role
         token['username'] = user.username
 
         return token
