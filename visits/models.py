@@ -15,6 +15,8 @@ class Visits(models.Model):
     )
     description = models.TextField(blank=True,null=True)
     medicine = models.TextField(blank=True,null=True)
+    medicine_status = models.BooleanField(default=False)
+    
     test_description =models.TextField(blank=True,null=True)
     test_attachments = models.TextField(blank=True,null=True)
 
