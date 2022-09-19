@@ -7,7 +7,7 @@ from rest_framework.validators import UniqueValidator
 from .models import Patient,PatientProfile, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile, User as UserModel
 # from django.contrib.auth import authenticate
 
-User = Patient
+User = Patient 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -26,8 +26,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             user_data = X_rays_labProfile.objects.get(user=user.id)
         elif user.role == "PATIENT":
             user_data = PatientProfile.objects.get(user=user.id)
-        
+        print(user_data,"user_datauser_data")
         token['info_id'] = user_data.id
+        # token['role'] = user_data
         token['username'] = user.username
 
         return token

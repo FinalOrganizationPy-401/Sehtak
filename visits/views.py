@@ -3,7 +3,7 @@
 from account.models import DoctorProfile, LabsProfile, PatientProfile, PharmacistProfile, X_rays_labProfile
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,CreateAPIView,ListAPIView
 
-from .serializers import VisitsSerializer,VisitDetailsSerializer
+from .serializers import VisitsSerializer,VisitDetailsSerializer,CreateVisitsSerializer
 from .models import Visits
 # from utils.permission import IsOwner
 
@@ -13,7 +13,7 @@ class CreateVisitView(CreateAPIView):
     Create new visit 
     '''
     queryset = Visits.objects.all()
-    serializer_class = VisitsSerializer
+    serializer_class = CreateVisitsSerializer
     
     def perform_create(self, serializer):
         patient = PatientProfile.objects.get(user=self.request.user.id)
@@ -54,7 +54,8 @@ class UserVisitsView(ListAPIView):
            
             data = Visits.objects.filter(x_rays_lab=x_rays_lab)
             return data
-
+        else:
+            return Visits.objects.all()
     serializer_class = VisitsSerializer
 
 
