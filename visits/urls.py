@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import CreateVisitView, VisitsRetrieveUpdateDestroyView,PatientVisitsView
+from .views import CreateVisitView, VisitsRetrieveUpdateDestroyView,UserVisitsView
 
 urlpatterns = [
-    path("", PatientVisitsView.as_view(), name="visits_list"),
+    path("", UserVisitsView.as_view(), name="visits_list"),
 
     path(
         "<int:pk>/",

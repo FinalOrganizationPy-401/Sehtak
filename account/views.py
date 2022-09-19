@@ -5,7 +5,7 @@ from rest_framework import generics
 from django.contrib.auth import get_user_model
 
 
-from utils.permission import IsOwner,IsOwnerOrReadOnly
+from utils.permission import IsOwner
 from .models import PatientProfile as PatientProfileModel, DoctorProfile,PharmacistProfile,LabsProfile,X_rays_labProfile
 
 # Login View 
@@ -46,7 +46,7 @@ class DoctorProfileView(generics.RetrieveAPIView):
     view doctor Profile details
     '''
     queryset = DoctorProfile.objects.all()
-    serializer_class = DoctorProfileSerializer
+    serializer_class = DoctorSerializer
 
 class DoctorProfileEdit(generics.RetrieveUpdateDestroyAPIView):
     '''
@@ -95,7 +95,7 @@ class LabProfileView(generics.RetrieveAPIView):
     '''
     queryset = LabsProfile.objects.all()
     serializer_class = LabProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
 
 class LabsProfileEdit(generics.RetrieveUpdateDestroyAPIView):
     '''
@@ -120,7 +120,7 @@ class X_raysProfileView(generics.RetrieveAPIView):
     '''
     queryset = X_rays_labProfile.objects.all()
     serializer_class = X_rayProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
 
 class  X_raysProfileEdit(generics.RetrieveUpdateDestroyAPIView):
     '''
