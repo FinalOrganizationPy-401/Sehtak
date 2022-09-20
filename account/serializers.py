@@ -16,13 +16,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_data =''
         # if user.role == "ADMIN":
         #     user_data = PatientProfile.objects.get(user=user.id)
-        if user.role == "DOCTOR":
+        if user.role == "DOCTORS":
             user_data = DoctorProfile.objects.get(user=user.id)
-        elif user.role == "PHARMACIST":
+        elif user.role == "PHARMACISTS":
             user_data = PharmacistProfile.objects.get(user=user.id)
         elif user.role == "LABS":
             user_data = LabsProfile.objects.get(user=user.id)
-        elif user.role == "X_RAYS_LAB":
+        elif user.role == "X_RAYS_LABS":
             user_data = X_rays_labProfile.objects.get(user=user.id)
         elif user.role == "PATIENT":
             user_data = PatientProfile.objects.get(user=user.id)

@@ -25,10 +25,10 @@ class User(AbstractUser):
     class Role(models.TextChoices):
         ADMIN = "ADMIN", "Admin"
         PATIENT = "PATIENT", "Patient"
-        DOCTOR = "DOCTOR", "Doctor"
-        PHARMACIST = "PHARMACIST", "Pharmacist"
+        DOCTOR = "DOCTORS", "Doctors"
+        PHARMACIST = "PHARMACISTS", "Pharmacists"
         LABS = "LABS", "Labs"
-        X_RAYS_LAB = "X_RAYS_LAB", "X_rays_lab"
+        X_RAYS_LAB = "X_RAYS_LABS", "X_rays_labs"
 
     base_role = Role.ADMIN
 
@@ -146,7 +146,7 @@ class DoctorProfile(ProfessionalProfile):
 
 @receiver(post_save, sender=Doctor)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created and instance.role == "DOCTOR":
+    if created and instance.role == "DOCTORS":
         DoctorProfile.objects.create(user=instance)
 
 
@@ -168,7 +168,7 @@ class Pharmacist(User):
 
 @receiver(post_save, sender=Pharmacist)
 def create_user_profile(sender, instance, created, *args, **kwargs):
-    if created and instance.role == "PHARMACIST":
+    if created and instance.role == "PHARMACISTS":
         PharmacistProfile.objects.create(user=instance)
 
 
@@ -230,5 +230,5 @@ class X_rays_labProfile(ProfessionalProfile):
 
 @receiver(post_save, sender=X_rays_lab)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created and instance.role == "X_RAYS_LAB":
+    if created and instance.role == "X_RAYS_LABS":
         X_rays_labProfile.objects.create(user=instance)
